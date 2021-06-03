@@ -1,9 +1,13 @@
 import * as en from './languages/en.json';
 import * as fr from './languages/fr.json';
+import * as no from './languages/no.json';
 
 var languages: any = {
   en: en,
-  fr: fr
+  fr: fr,
+  nb: no,
+  nn: no,
+  no; no
 };
 
 export function localize(string: string, language: string, search: string | string[] = '', replace: string | string[] = '') {
