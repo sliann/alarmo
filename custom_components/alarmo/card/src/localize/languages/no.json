@@ -1,0 +1,11 @@
+
+{
+  "editor": {
+    "keep_keypad_visible": "Vis alltid tastaturet. Også når kode ikke er nødvendig.",
+    "button_scale": "Skaleringsfaktor for størrelse på knapper."
+  },
+  "errors": {
+    "blocking_sensors": "Kunne ikke aktivere grunnet følgende sensorer",
+    "triggered_sensors": "Alarmen ble aktivert av følgende sensorer"
+  }
+}
