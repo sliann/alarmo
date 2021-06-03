@@ -1,0 +1,473 @@
+{
+  "common": {
+    "modes_long": {
+      "armed_away": "Aktivert Borte",
+      "armed_home": "Aktivert Hjemme",
+      "armed_night": "Aktivert Natt",
+      "armed_custom_bypass": "Aktivert Tilpasset"
+    },
+    "modes_short": {
+      "armed_away": "Borte",
+      "armed_home": "Hjemme",
+      "armed_night": "Natt",
+      "armed_custom_bypass": "Tilpasset"
+    }
+  },
+  "components": {
+    "time_slider": {
+      "seconds": "sek",
+      "minutes": "min",
+      "infinite": "uendelig",
+      "none": "ingen"
+    },
+    "editor": {
+      "ui_mode": "Bytt til UI",
+      "yaml_mode": "Bytt til YAML"
+    }
+  },
+  "title": "Alarmpanel",
+  "panels": {
+    "general": {
+      "title": "Generellt",
+      "cards": {
+        "general": {
+          "description": "Dette panelet definer felles innstillinger for alarmen.",
+          "fields": {
+            "disarm_after_trigger": {
+              "heading": "Deaktiver når utløst",
+              "description": "Dekativ alarmen etter utløsningstiden har utløpt i steden for å gå tilbake til aktivert tilstand."
+            },
+            "enable_mqtt": {
+              "heading": "Aktiver MQTT",
+              "description": "Tillater alarmpanel å bli kontrollert via MQTT."
+            },
+            "enable_master": {
+              "heading": "Enable alarm master",
+              "description": "Creates an entity for controlling all areas simultaneously."
+            }
+          },
+          "actions": {
+            "setup_mqtt": "MQTT Configuration",
+            "setup_master": "Master Configuration"
+          }
+        },
+        "modes": {
+          "title": "Modes",
+          "description": "This panel can be used to set up the arm modes of the alarm.",
+          "fields": {
+            "mode": {
+              "armed_away": "Armed away will be used when all people left the house. All doors and windows allowing access to the house will be guarded, as well as motion sensors inside the house.",
+              "armed_home": "Armed home (also known as armed stay) will be used when setting the alarm while people are in the house. All doors and windows allowing access to the house will be guarded, but not motion sensors inside the house.",
+              "armed_night": "Armed night will be used when setting the alarm before going to sleep. All doors and windows allowing access to the house will be guarded, and selected motion sensors (downstairs) in the house.",
+              "armed_custom_bypass": "An extra mode for defining your own security perimeter.",
+              "enabled": "Enabled",
+              "disabled": "Disabled"
+            },
+            "exit_delay": {
+              "heading": "Exit delay",
+              "description": "When arming the alarm, within this time period the sensors will not trigger the alarm yet."
+            },
+            "entry_delay": {
+              "heading": "Entry delay",
+              "description": "Delay time until the alarm is triggered after one of the sensors is activated."
+            },
+            "trigger_time": {
+              "heading": "Trigger time",
+              "description": "Time during which the siren will sound"
+            }
+          }
+        },
+        "mqtt": {
+          "title": "MQTT configuration",
+          "description": "This panel can be used for configuration of the MQTT interface.",
+          "fields": {
+            "state_topic": {
+              "heading": "State topic",
+              "description": "Topic on which state updates are published"
+            },
+            "event_topic": {
+              "heading": "Event topic",
+              "description": "Topic on which alarm events are published"
+            },
+            "command_topic": {
+              "heading": "Command topic",
+              "description": "Topic on which arm/disarm commands are sent."
+            },
+            "require_code": {
+              "heading": "Require code",
+              "description": "Require the code to be sent with the command."
+            },
+            "state_payload": {
+              "heading": "Configure payload per state",
+              "item": "Define a payload for state '{state}'"
+            },
+            "command_payload": {
+              "heading": "Configure payload per command",
+              "item": "Define a payload for command '{command}'"
+            }
+          }
+        },
+        "areas": {
+          "title": "Areas",
+          "description": "Areas can be used for dividing your alarm system into multiple compartments.",
+          "no_items": "There are no areas defined yet.",
+          "table": {
+            "remarks": "Remarks",
+            "summary": "This area contains {summary_sensors} and {summary_automations}.",
+            "summary_sensors": "{number} sensors",
+            "summary_automations": "{number} automations"
+          },
+          "actions": {
+            "add": "Add"
+          }
+        }
+      },
+      "dialogs": {
+        "create_area": {
+          "title": "New area",
+          "fields": {
+            "copy_from": "Copy settings from"
+          }
+        },
+        "edit_area": {
+          "title": "Editing area '{area}'",
+          "name_warning": "Note: changing the name will change the entity ID"
+        },
+        "remove_area": {
+          "title": "Remove area?",
+          "description": "Are you sure you want to remove this area? This area contains {sensors} sensors and {automations} automations, which will be removed as well."
+        },
+        "edit_master": {
+          "title": "Master configuration"
+        },
+        "disable_master": {
+          "title": "Disable master?",
+          "description": "Are you sure you want to remove the alarm master? This area contains {automations} automations, which will be removed with this action."
+        }
+      }
+    },
+    "sensors": {
+      "title": "Sensors",
+      "cards": {
+        "sensors": {
+          "description": "Currently configured sensors. Click on an entity to make changes.",
+          "no_items": "There are no sensors to be displayed here.",
+          "table": {
+            "arm_modes": "Arm Modes",
+            "always_on": "(Always)"
+          },
+          "filter": {
+            "label": "Filter by area",
+            "no_area": "(No area)"
+          }
+        },
+        "add_sensors": {
+          "title": "Add Sensors",
+          "description": "Add more sensors. Make sure that your sensors have a friendly_name, so you can identify them.",
+          "no_items": "There are no available HA entities that can be configured for the alarm. Make sure to include entities of the type binary_sensor.",
+          "actions": {
+            "add_to_alarm": "add to alarm",
+            "show_all": "Show all"
+          }
+        },
+        "editor": {
+          "title": "Edit Sensor",
+          "description": "Configuring the sensor settings of '{entity}'.",
+          "fields": {
+            "name": {
+              "heading": "Name",
+              "description": "Overwrite friendly name."
+            },
+            "area": {
+              "heading": "Area",
+              "description": "Select an area which contains this sensor."
+            },
+            "device_type": {
+              "heading": "Device Type",
+              "description": "Choose a device type to automatically apply appropriate settings.",
+              "choose": {
+                "door": {
+                  "name": "Door",
+                  "description": "A door, gate or other entrance that is used for entering/leaving the home."
+                },
+                "window": {
+                  "name": "Window",
+                  "description": "A window, or a door not used for entering the house such as balcony."
+                },
+                "motion": {
+                  "name": "Motion",
+                  "description": "Presence sensor or similar device having a delay between activations."
+                },
+                "tamper": {
+                  "name": "Tamper",
+                  "description": "Detector of sensor cover removal, glass break sensor, etc."
+                },
+                "environmental": {
+                  "name": "Environmental",
+                  "description": "Smoke/gas sensor, leak detector, etc. (not related to burglar protection)."
+                },
+                "other": {
+                  "name": "Generic"
+                }
+              }
+            },
+            "always_on": {
+              "heading": "Always on",
+              "description": "Sensor should always trigger the alarm."
+            },
+            "modes": {
+              "heading": "Enabled modes",
+              "description": "Alarm modes in which this sensor is active."
+            },
+            "arm_on_close": {
+              "heading": "Arm after closing",
+              "description": "After deactivation of this sensor, the remaining exit delay will automatically be skipped."
+            },
+            "immediate": {
+              "heading": "Immediate",
+              "description": "Activating this sensor will trigger the alarm directly instead of after entry delay."
+            },
+            "allow_open": {
+              "heading": "Allow open while arming",
+              "description": "Allow this sensor to be active shortly after leaving such that it will not block arming."
+            },
+            "auto_bypass": {
+              "heading": "Bypass automatically",
+              "description": "Exclude this sensor from the alarm if it is open while arming."
+            },
+            "trigger_unavailable": {
+              "heading": "Trigger when unavailable",
+              "description": "When the sensor state becomes 'unavailable', this will activate the sensor."
+            }
+          },
+          "actions": {
+            "toggle_advanced": "Advanced settings",
+            "remove": "Remove"
+          },
+          "errors": {
+            "description": "Please correct the following errors:",
+            "no_area": "No area is selected",
+            "no_modes": "No modes are selected for which the sensor should be active"
+          }
+        }
+      }
+    },
+    "codes": {
+      "title": "Codes",
+      "cards": {
+        "codes": {
+          "description": "Change settings for the code.",
+          "fields": {
+            "code_arm_required": {
+              "heading": "Use arm code",
+              "description": "Require a code for arming the alarm"
+            },
+            "code_disarm_required": {
+              "heading": "Use disarm code",
+              "description": "Require a code for disarming the alarm"
+            },
+            "code_format": {
+              "heading": "Code format",
+              "description": "Sets the input type for Lovelace alarm card.",
+              "code_format_number": "pincode",
+              "code_format_text": "password"
+            }
+          }
+        },
+        "user_management": {
+          "title": "User management",
+          "description": "Each user has its own code to arm/disarm the alarm.",
+          "no_items": "There are no users yet",
+          "table": {
+            "remarks": "Remarks",
+            "administrator": "Administrator"
+          },
+          "actions": {
+            "new_user": "new user"
+          }
+        },
+        "new_user": {
+          "title": "Create new user",
+          "description": "Users can be created for providing access to operating the alarm.",
+          "fields": {
+            "name": {
+              "heading": "Name",
+              "description": "Name of the user."
+            },
+            "code": {
+              "heading": "Code",
+              "description": "Code for this user."
+            },
+            "confirm_code": {
+              "heading": "Confirm code",
+              "description": "Repeat the code."
+            },
+            "is_admin": {
+              "heading": "User is administrator",
+              "description": "Allow user to make changes"
+            },
+            "can_arm": {
+              "heading": "Allow code for arming",
+              "description": "Entering this code activates the alarm"
+            },
+            "can_disarm": {
+              "heading": "Allow code for disarming",
+              "description": "Entering this code deactivates the alarm"
+            },
+            "is_override_code": {
+              "heading": "Is override code",
+              "description": "Entering this code will arm the alarm in force"
+            }
+          },
+          "errors": {
+            "no_name": "No name provided.",
+            "no_code": "Code should have 4 characters/numbers minimum.",
+            "code_mismatch": "The codes don't match."
+          }
+        },
+        "edit_user": {
+          "title": "Edit User",
+          "description": "Change configuration for user '{name}'.",
+          "fields": {
+            "old_code": {
+              "heading": "Current code",
+              "description": "Current code, leave empty to leave unchanged."
+            }
+          }
+        }
+      }
+    },
+    "actions": {
+      "title": "Actions",
+      "cards": {
+        "notifications": {
+          "title": "Notifications",
+          "description": "Using this panel, you can manage notifications to be sent when during a certain alarm event.",
+          "table": {
+            "enabled": "Enabled",
+            "no_items": "There are no notifications created yet."
+          },
+          "actions": {
+            "new_notification": "new notification"
+          },
+          "filter": {
+            "label": "Filter by area",
+            "no_area": "Alarm master"
+          }
+        },
+        "actions": {
+          "description": "This panel can be used to switch a device when the alarm state changes.",
+          "table": {
+            "no_items": "There are no actions created yet."
+          },
+          "actions": {
+            "new_action": "new action"
+          }
+        },
+        "new_notification": {
+          "title": "Create notification",
+          "description": "Create a new notification.",
+          "fields": {
+            "name": {
+              "heading": "Name",
+              "description": "Description for this notification"
+            },
+            "event": {
+              "heading": "Event",
+              "description": "When should the notification be sent",
+              "choose": {
+                "armed": {
+                  "name": "Alarm is armed",
+                  "description": "The alarm is succesfully armed"
+                },
+                "disarmed": {
+                  "name": "Alarm is disarmed",
+                  "description": "The alarm is disarmed"
+                },
+                "triggered": {
+                  "name": "Alarm is triggered",
+                  "description": "The alarm is triggered"
+                },
+                "arm_failure": {
+                  "name": "Failed to arm",
+                  "description": "The arming of the alarm failed due to one or more open sensors"
+                },
+                "arming": {
+                  "name": "Exit delay started",
+                  "description": "Exit delay started, ready to leave the house."
+                },
+                "pending": {
+                  "name": "Entry delay started",
+                  "description": "Entry delay started, the alarm will trigger soon."
+                }
+              }
+            },
+            "mode": {
+              "heading": "Mode",
+              "description": "Limit the action to specific arm modes (optional)"
+            },
+            "title": {
+              "heading": "Title",
+              "description": "Title for the notification message"
+            },
+            "message": {
+              "heading": "Message",
+              "description": "Content of the notification message"
+            },
+            "target": {
+              "heading": "Target",
+              "description": "Device to send the push message to"
+            }
+          },
+          "actions": {
+            "test": "Try it"
+          }
+        },
+        "new_action": {
+          "title": "Create action",
+          "description": "This panel can be used to switch a device when the alarm state changes.",
+          "fields": {
+            "name": {
+              "heading": "Name",
+              "description": "Description for this action"
+            },
+            "event": {
+              "heading": "Event",
+              "description": "When should the action be executed"
+            },
+            "area": {
+              "heading": "Area",
+              "description": "Area for which the event applies, leave empty to select the global alarm."
+            },
+            "mode": {
+              "heading": "Mode",
+              "description": "Limit the action to specific arm modes (optional)"
+            },
+            "entity": {
+              "heading": "Entity",
+              "description": "Entity to perform action on"
+            },
+            "action": {
+              "heading": "Action",
+              "description": "Action to perform on the entity",
+              "turn_on": "Turn on",
+              "turn_off": "Turn off"
+            }
+          }
+        }
+      },
+      "validation_errors": {
+        "no_triggers": "No state or event provided for the triggering of this automation.",
+        "empty_trigger": "One of the triggers has no state or event provided.",
+        "invalid_trigger": "One of the triggers has an invalid value: {trigger}",
+        "invalid_mode": "Invalid input provided for 'mode': {mode}",
+        "no_actions": "No actions are provided to be performed by this automation.",
+        "no_service": "One of the actions is missing a service.",
+        "invalid_service": "An invalid service name was provided for one of the actions: {service}",
+        "no_service_data": "No service data was provided for one of the actions.",
+        "no_entity_in_service_data": "No entity_id was provided in the service_data of one of the actions.",
+        "no_message_in_service_data": "No message was provided in the service_data of one of the actions."
+      }
+    }
+  }
+}
