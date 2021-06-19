@@ -1,4 +1,4 @@
-export const VERSION = '1.5.7';
+export const VERSION = '1.6.2';
 
 export const platform = 'alarmo';
 export const editConfigService = 'edit_config';
@@ -46,4 +46,9 @@ export enum ESensorIcons {
   Tamper = 'hass:vibrate',
   Environmental = 'hass:fire',
   Other = 'hass:contactless-payment-circle-outline',
+}
+
+export enum EAutomationTypes {
+  Notification = "notification",
+  Action = "action",
 }

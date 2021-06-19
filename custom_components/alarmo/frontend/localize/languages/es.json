@@ -22,7 +22,8 @@
     },
     "editor": {
       "ui_mode": "Editar en la UI",
-      "yaml_mode": "Editar en YAML"
+      "yaml_mode": "Editar en YAML",
+      "edit_in_yaml": "Edit in YAML"
     }
   },
   "title": "Panel de alarma",
@@ -352,7 +353,7 @@
           },
           "filter": {
             "label": "Filtrar por área",
-            "no_area": "Alarma maestra"
+            "no_area": "(Sin área)"
           }
         },
         "actions": {
@@ -367,11 +368,10 @@
         "new_notification": {
           "title": "Crear notificación",
           "description": "Crear una nueva notificación.",
+          "trigger": "Condition",
+          "action": "Task",
+          "options": "Options",
           "fields": {
-            "name": {
-              "heading": "Nombre",
-              "description": "Descripción de esta notificación."
-            },
             "event": {
               "heading": "Evento",
               "description": "Cuándo debe enviarse la notificación.",
@@ -412,11 +412,36 @@
             },
             "message": {
               "heading": "Mensaje",
-              "description": "Contenido del mensaje de notificación."
+              "description": "Contenido del mensaje de notificación.",
+              "insert_wildcard": "Insertar comodín",
+              "placeholders": {
+                "armed": "La alarma está configurada en {{arm_mode}}",
+                "disarmed": "Ahora la alarma está APAGADA",
+                "triggered": "¡Se ha disparado la alarma! Causa: {{open_sensors}}.",
+                "arm_failure": "No se pudo armar la alarma en este momento debido a: {{open_sensors}}.",
+                "arming": "Se armará pronto la alarma, por favor, salga de la casa.",
+                "pending": "¡La alarma está a punto de dispararse, desarme rápidamente!"
+              }
             },
             "target": {
               "heading": "Objetivo",
               "description": "Dispositivo al que enviar el mensaje push."
+            },
+            "name": {
+              "heading": "Nombre",
+              "description": "Descripción de esta notificación.",
+              "placeholders": {
+                "armed": "Notificar a {target} al armar",
+                "disarmed": "Notificar a {target} al desarmar",
+                "triggered": "Notificar a {target} cuando se dispare",
+                "arm_failure": "Notificar a {target} si falla",
+                "arming": "Notificar a {target} cuando se vaya",
+                "pending": "Notificar a {target} cuando llegue"
+              }
+            },
+            "delete": {
+              "heading": "Eliminar automatización",
+              "description": "Eliminar esta automatización de forma permanente"
             }
           },
           "actions": {
@@ -427,10 +452,6 @@
           "title": "Crear acción",
           "description": "Este panel se puede utilizar para cambiar un dispositivo cuando cambia el estado de la alarma.",
           "fields": {
-            "name": {
-              "heading": "Nombre",
-              "description": "Descripción de esta acción."
-            },
             "event": {
               "heading": "Evento",
               "description": "¿Cuándo debe ejecutarse la acción?"
@@ -452,21 +473,21 @@
               "description": "Acción a realizar en la entidad.",
               "turn_on": "Activar",
               "turn_off": "Desactivar"
+            },
+            "name": {
+              "heading": "Nombre",
+              "description": "Descripción de esta acción.",
+              "placeholders": {
+                "armed": "Establecer {entity} en {state} al armar",
+                "disarmed": "Establecer {entity} en {state} al desarmar",
+                "triggered": "Establecer {entity} en {state} cuando se dispare",
+                "arm_failure": "Establecer {entity} en {state} si falla",
+                "arming": "Establecer {entity} en {state} cuando se vaya",
+                "pending": "Establecer {entity} en {state} cuando llegue"
+              }
             }
           }
         }
-      },
-      "validation_errors": {
-        "no_triggers": "No se ha proporcionado ningún estado o evento para la activación de esta automatización.",
-        "empty_trigger": "Uno de los disparadores no tiene estado o evento proporcionado.",
-        "invalid_trigger": "Uno de los activadores tiene un valor no válido: {trigger}",
-        "invalid_mode": "Se proporcionó una entrada no válida para el 'modo': {mode}",
-        "no_actions": "No se ha proporcionado ninguna acción para ser realizada por esta automatización.",
-        "no_service": "A una de las acciones le falta un servicio.",
-        "invalid_service": "Se proporcionó un nombre de servicio no válido para una de las acciones: {service}",
-        "no_service_data": "No se proporcionaron datos de servicio para una de las acciones.",
-        "no_entity_in_service_data": "No se proporcionó un entity_id en el service_data de una de las acciones.",
-        "no_message_in_service_data": "No se proporcionó ningún mensaje en el service_data de una de las acciones."
       }
     }
   }

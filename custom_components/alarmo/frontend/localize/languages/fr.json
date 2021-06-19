@@ -22,7 +22,8 @@
     },
     "editor": {
       "ui_mode": "Afficher l'éditeur visuel",
-      "yaml_mode": "Afficher l'éditeur de code"
+      "yaml_mode": "Afficher l'éditeur de code",
+      "edit_in_yaml": "Editer en YAML"
     }
   },
   "title": "Gestion de L'alarme",
@@ -85,7 +86,7 @@
               "heading": "Etat de données",
               "description": "Donnée sur laquelle les mises à jour d'état sont publiées"
             },
-             "event_topic": {
+            "event_topic": {
               "heading": "Evènement de données",
               "description": "Donnée sur laquelle les évènements d'état sont publiés"
             },
@@ -131,7 +132,7 @@
         },
         "edit_area": {
           "title": "Editer la zone '{area}'",
-          "name_warning": "Note: Changer le nom changera l'entity ID"
+          "name_warning": "Note: Changer le nom, changera l'entity ID"
         },
         "remove_area": {
           "title": "Suppression de zone?",
@@ -158,7 +159,7 @@
           },
           "filter": {
             "label": "Filtrer par zone",
-            "no_area": "Aucune zone"
+            "no_area": "(Aucune zone)"
           }
         },
         "add_sensors": {
@@ -352,7 +353,7 @@
           },
           "filter": {
             "label": "Filtrer par zone",
-            "no_area": "Alarme principale"
+            "no_area": "(Aucune zone)"
           }
         },
         "actions": {
@@ -367,11 +368,10 @@
         "new_notification": {
           "title": "Créer une notification",
           "description": "Créer une nouvelle notification.",
+          "trigger": "Condition",
+          "action": "Action",
+          "options": "Options",
           "fields": {
-            "name": {
-              "heading": "Nom",
-              "description": "Description de la notification"
-            },
             "event": {
               "heading": "Evènement",
               "description": "Détermine quand la notification doit être envoyée",
@@ -412,11 +412,36 @@
             },
             "message": {
               "heading": "Message",
-              "description": "Contenu du message de la notification"
+              "description": "Contenu du message de la notification",
+              "insert_wildcard": "Inserer la wildcard",
+              "placeholders": {
+                "armed": "L'alarme est réglée sur {{arm_mode}}",
+                "disarmed": "L'alarme est maintenant désactivée",
+                "triggered": "L'alarme est déclenchée! Cause: {{open_sensors}}.",
+                "arm_failure": "L'alarme n'a pas pu être armée pour le moment, en cause: {{open_sensors}}.",
+                "arming": "L'alarme sera bientôt armée, veuillez quitter la maison.",
+                "pending": "L'alarme est sur le point de se déclencher, désarmez-la rapidement!"
+              }
             },
             "target": {
               "heading": "Cible",
               "description": "Appareil recevant le message"
+            },
+            "name": {
+              "heading": "Nom",
+              "description": "Description de la notification",
+              "placeholders": {
+                "armed": "Notification à l'armement de : {target}",
+                "disarmed": "Notification au désarmement de : {target}",
+                "triggered": "Notification au déclenchement de : {target}",
+                "arm_failure": "Notification en cas d'échec de : {target}",
+                "arming": "Notification en quittant de : {target}",
+                "pending": "Notification au retour de : {target}"
+              }
+            },
+            "delete": {
+              "heading": "Supprimer l'automatisme",
+              "description": "Supprimer définitivement cet automatisme"
             }
           },
           "actions": {
@@ -427,10 +452,6 @@
           "title": "Créer une action",
           "description": "Ce panneau peut être utilisé pour commuter un appareil lorsque l'état de l'alarme change.",
           "fields": {
-            "name": {
-              "heading": "Nom",
-              "description": "Description de  l'action"
-            },
             "event": {
               "heading": "Evènement",
               "description": "Détermine quand l'action doit être exécutée"
@@ -452,21 +473,21 @@
               "description": "Action à exécuter sur l'entité",
               "turn_on": "Mettre à on",
               "turn_off": "Mettre à off"
+            },
+            "name": {
+              "heading": "Nom",
+              "description": "Description de  l'action",
+              "placeholders": {
+                "armed": "Mettre {entity} à {state} lors de l'armement",
+                "disarmed": "Mettre {entity} à {state} lors du désarmement",
+                "triggered": "Mettre {entity} à {state} lors du déclenchement de l'alarme",
+                "arm_failure": "Mettre {entity} à {state} en cas d'échec de l'armement",
+                "arming": "Mettre {entity} à {state} lors du départ de la maison",
+                "pending": "Mettre {entity} à {state} lors du retour à la maison"
+              }
             }
           }
         }
-      },
-      "validation_errors": {
-        "no_triggers": "Aucun état ou évènement prévu pour le déclenchement de cette automatisation.",
-        "empty_trigger": "L'un des déclencheurs n'a aucun état ou évènement fourni.",
-        "invalid_trigger": "L'un des déclencheurs a une valeur non valide: {trigger}",
-        "invalid_mode": "Entrée non valide fournie par  le 'mode': {mode}",
-        "no_actions": "Aucune action n'est prévue pour être effectuée par cette automatisation.",
-        "no_service": "Il manque un service dans l’une des actions.",
-        "invalid_service": "Un nom de service non valide a été fourni pour l'une des actions: {service}",
-        "no_service_data": "Aucune donnée de service n'a été fournie pour l'une des actions.",
-        "no_entity_in_service_data": "Aucun entity_id n'a été fourni dans le service_data de l'une des actions.",
-        "no_message_in_service_data": "Aucun message n'a été fourni dans le service_data de l'une des actions."
       }
     }
   }
